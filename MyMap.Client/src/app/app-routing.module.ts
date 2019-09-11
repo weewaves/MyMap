@@ -1,10 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { MapComponent } from './component/map/map.component';
+import { ComponentModule } from './component/component.module';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', component: MapComponent, data: { routeName: 'Home' } },
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    ComponentModule,
+    RouterModule.forRoot(routes)
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
