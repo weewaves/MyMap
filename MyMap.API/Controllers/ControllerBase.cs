@@ -1,17 +1,12 @@
-﻿using System;
-using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace MyMap.API.Controllers
 {
     public class ControllerBase<T> : Controller where T : Controller
     {
-        private ILogger<T> logger;
-
         public ControllerBase()
         {
             Configuration = null;

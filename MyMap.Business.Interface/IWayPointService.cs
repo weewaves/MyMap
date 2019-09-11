@@ -7,6 +7,6 @@ namespace MyMap.Business.Interface
 {
     public interface IWayPointService
     {
-        Task<IEnumerable<WayPointModel>> FetchWaypointsWithinMapRegion(MapRegion mapRegion, int maxNumberOfWayPoints);
+        Task<IEnumerable<WayPointModel>> FetchWaypointsWithinMapRegionAsync(MapRegion mapRegion, int maxNumberOfWayPoints);
     }
 }
