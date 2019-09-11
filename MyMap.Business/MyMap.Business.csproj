@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyMap.Business.Interface\MyMap.Business.Interface.csproj" />
+    <ProjectReference Include="..\MyMap.Business.Model\MyMap.Business.Model.csproj" />
+    <ProjectReference Include="..\MyMap.Share\MyMap.Lib.csproj" />
+  </ItemGroup>
+
+</Project>
