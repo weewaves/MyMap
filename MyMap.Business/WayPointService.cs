@@ -15,7 +15,7 @@ namespace MyMap.Business
             : base(dbContext, mapper)
         { }
 
-        public async Task<IEnumerable<WayPointModel>> FetchWaypointsWithinMapRegionAsync(MapRegion mapRegion, int maxNumberOfWayPoints = 10)
+        public async Task<IEnumerable<WayPointModel>> LoadWayPointCollectionByRegion(MapRegion mapRegion, int maxNumberOfWayPoints = 10)
         {
             var list = new List<WayPointModel>
             {

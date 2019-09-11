@@ -25,12 +25,12 @@ namespace MyMap.API.Controllers
         }
 
         [HttpPost]
-        [Route("api/FetchWaypointsWithinMapRegion")]
+        [Route("api/LoadWayPointCollectionByRegion")]
         public async Task<object> Post([FromBody] MapRegion mapRegion)
         {
             try
             {
-                return _wayPointService.FetchWaypointsWithinMapRegionAsync(mapRegion, 50);
+                return _wayPointService.LoadWayPointCollectionByRegion(mapRegion, 50);
             }
             catch (Exception exception)
             {
