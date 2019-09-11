@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MyMap.DataModel.Interface
 {
-    public interface IMyMapDbContext
+    public interface IMyMapDbContext: IDisposable
     {
         DbSet<TEntity> Set<TEntity>() where TEntity : class;
 

@@ -27,7 +27,7 @@ namespace MyMap.Business.Model.WayPoint
 
         public string Name { get; set; }
 
-        public WaypointTypeEnum Type { get; set; }
+        public int Type { get; set; }
 
         public float? Height { get; set; }
 

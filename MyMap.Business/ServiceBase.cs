@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MyMap.Business.Model;
 using MyMap.DataModel.Interface;
 using System;
 using System.Collections.Generic;
@@ -25,5 +26,34 @@ namespace MyMap.Business
         }
 
         protected IMapper Mapper { get; }
+
+        protected BusinessResult CreateSuccessResult()
+        {
+            return BusinessResult.Success();
+        }
+
+        protected BusinessResult<T> CreateSuccessResult<T>(T value)
+        {
+            return BusinessResult<T>.Success(value);
+        }
+
+        protected BusinessResult CreateErrorResult(string fieldName, string message)
+        {
+            return BusinessResult.Error(fieldName, message);
+        }
+
+        protected BusinessResult CreateErrorResult<T>(string fieldName, string message)
+        {
+            return BusinessResult.Error(fieldName, message);
+        }
+
+        public void Dispose()
+        {
+            if (_dbContext != null)
+            {
+                _dbContext.Dispose();
+                _dbContext = null;
+            }
+        }
     }
 }
