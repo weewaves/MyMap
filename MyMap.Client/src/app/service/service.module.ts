@@ -1,12 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MapService } from './common/map.service';
+import { WayPointService } from './way-point/waypoint.service';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ],
-  declarations: [MapService],
-  exports: [MapService]
+  providers: [
+    MapService,
+    WayPointService
+  ],
 })
 export class ServiceModule { }

@@ -1,7 +1,9 @@
 // tslint:disable: variable-name
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MouseEvent, AgmMap } from '@agm/core';
+import { MouseEvent, AgmMap, AgmMarker } from '@agm/core';
 import { MapService } from 'src/app/service/common/map.service';
+import { WayPointService } from 'src/app/service/way-point/waypoint.service';
+import { WayPointViewModel } from 'src/app/model/view-model/way-point/way-point-view-model';
 
 declare var google: any;
 @Component({
@@ -10,43 +12,27 @@ declare var google: any;
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
+  public get mapService(): MapService {
+    return this._mapService;
+  }
+  public set mapService(value: MapService) {
+    this._mapService = value;
+  }
   @ViewChild('GoogleMap') googleMap: AgmMap;
+  @ViewChild('MakerLayer') markerLayer: AgmMarker;
 
 
   private _googleMapElement: any;
   private _idleEventListener: any;
-  private _mapService: MapService;
 
-  // google maps zoom level
+  // Default settings
   zoom = 8;
-
-  // initial center position for the map
   lat = 51.673858;
   lng = 7.815982;
 
-  markers: Marker[] = [
-    {
-      lat: 51.673858,
-      lng: 7.815982,
-      label: 'A',
-      draggable: true
-    },
-    {
-      lat: 51.373858,
-      lng: 7.215982,
-      label: 'B',
-      draggable: false
-    },
-    {
-      lat: 51.723858,
-      lng: 7.895982,
-      label: 'C',
-      draggable: true
-    }
-  ];
+  markers: WayPointViewModel[] = [];
 
-  constructor(mapService: MapService) {
-    this._mapService = mapService;
+  constructor(private _mapService: MapService, private _waypointService: WayPointService) {
   }
 
   ngOnInit(): void {
@@ -54,14 +40,22 @@ export class MapComponent implements OnInit {
   }
 
   _onMapReady(event: any) {
-    console.log('_onMapReady');
     this._googleMapElement = event;
     this._idleEventListener = google.maps.event.addListener(this._googleMapElement, 'idle', this._onMapIdle.bind(this));
   }
 
   _onMapIdle() {
+    const self = this;
     const currentMapRegion = this._mapService.getCurrentBound(this._googleMapElement);
-    console.log('Idle');
+
+    this._waypointService
+      .loadRegionalWayPointCollection(currentMapRegion)
+      .subscribe(res => {
+        self.markers = [];
+        setTimeout(() => {
+          self.markers = res;
+        });
+      });
   }
 
   clickedMarker(label: string, index: number) {
@@ -69,22 +63,24 @@ export class MapComponent implements OnInit {
   }
 
   mapClicked($event: MouseEvent) {
-    this.markers.push({
+    const self = this;
+    const data: WayPointViewModel = {
       lat: $event.coords.lat,
       lng: $event.coords.lng,
       draggable: true
-    });
+    };
+    this._waypointService
+      .createWayPoint(data)
+      .subscribe(() => {
+        self.markers.push({
+          lat: $event.coords.lat,
+          lng: $event.coords.lng,
+          draggable: true
+        });
+      });
   }
 
-  markerDragEnd(m: Marker, $event: MouseEvent) {
+  markerDragEnd(m: WayPointViewModel, $event: MouseEvent) {
     console.log('dragEnd', m, $event);
   }
-}
-
-// just an interface for type safety.
-interface Marker {
-  lat: number;
-  lng: number;
-  label?: string;
-  draggable: boolean;
 }

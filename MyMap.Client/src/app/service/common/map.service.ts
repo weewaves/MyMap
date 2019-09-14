@@ -23,12 +23,12 @@ export class MapService {
     }
 
     currentMapRegion.topRightCorner = {
-      latitude: result.getNorthEast().lat(),
-      longitude: result.getNorthEast().lng()
+      lat: result.getNorthEast().lat(),
+      lng: result.getNorthEast().lng()
     };
     currentMapRegion.bottomLeftCorner = {
-      latitude: result.getSouthWest().lat(),
-      longitude: result.getSouthWest().lng()
+      lat: result.getSouthWest().lat(),
+      lng: result.getSouthWest().lng()
     };
 
     return currentMapRegion;
@@ -37,7 +37,7 @@ export class MapService {
   public getMapCenter(googleMapObj: any): Coordinate {
     const mapCenter = googleMapObj.getCenter();
 
-    return { latitude: mapCenter.lat(), longitude: mapCenter.lng() };
+    return { lat: mapCenter.lat(), lng: mapCenter.lng() };
   }
 
   public getFitBoundFromCoordinateCollection(coordinates: Coordinate[]): LatLngBounds {
@@ -50,15 +50,15 @@ export class MapService {
     fitBound = new google.maps.LatLngBounds();
 
     coordinates.forEach((coordinate) => {
-      fitBound.extend(new google.maps.LatLng(coordinate.latitude, coordinate.longitude));
+      fitBound.extend(new google.maps.LatLng(coordinate.lat, coordinate.lng));
     });
 
     return fitBound;
   }
 
-  public addReadOnlyMarker(mapObject: any, coordinate: any, ico: any, lbl: any) {
+  public addReadOnlyMarker(mapObject: any, coordinate: Coordinate, ico: any, lbl: any) {
     const marker = new google.maps.Marker({
-      position: new google.maps.LatLng(coordinate.latitude, coordinate.longitude),
+      position: new google.maps.LatLng(coordinate.lat, coordinate.lng),
       map: mapObject,
       icon: ico,
       label: lbl,
@@ -68,9 +68,9 @@ export class MapService {
     return marker;
   }
 
-  public addDraggableMarker(mapObject: any, coordinate: any, ico: any, lbl: any) {
+  public addDraggableMarker(mapObject: any, coordinate: Coordinate, ico: any, lbl: any) {
     const marker = new google.maps.Marker({
-      position: new google.maps.LatLng(coordinate.latitude, coordinate.longitude),
+      position: new google.maps.LatLng(coordinate.lat, coordinate.lng),
       map: mapObject,
       icon: ico,
       draggable: true,

@@ -41,15 +41,15 @@ namespace MyMap.Common
         public bool Contains(Coordinate coordinate)
         {
             // Extract Latitude - Closest to the North
-            var topLatitude = TopLeftCorner != null ? TopLeftCorner.Latitude : TopRightCorner.Latitude;
-            var bottomLatitude = BottomLeftCorner != null ? BottomLeftCorner.Latitude : BottomRightCorner.Latitude;
+            var topLatitude = TopLeftCorner != null ? TopLeftCorner.Lat : TopRightCorner.Lat;
+            var bottomLatitude = BottomLeftCorner != null ? BottomLeftCorner.Lat : BottomRightCorner.Lat;
 
             // Extract longitude - Closest to the South
-            var leftLongitude = TopLeftCorner != null ? TopLeftCorner.Longitude : BottomLeftCorner.Longitude;
-            var rightLongitude = TopRightCorner != null ? TopRightCorner.Longitude : BottomRightCorner.Longitude;
+            var leftLongitude = TopLeftCorner != null ? TopLeftCorner.Lng : BottomLeftCorner.Lng;
+            var rightLongitude = TopRightCorner != null ? TopRightCorner.Lng : BottomRightCorner.Lng;
 
-            return IsGivenLatitudeValid(coordinate.Latitude, bottomLatitude, topLatitude)
-                && IsGivenLongitudeValid(coordinate.Longitude, leftLongitude, rightLongitude);
+            return IsGivenLatitudeValid(coordinate.Lat, bottomLatitude, topLatitude)
+                && IsGivenLongitudeValid(coordinate.Lng, leftLongitude, rightLongitude);
         }
 
         public decimal GetMinLatitude()
@@ -59,7 +59,7 @@ namespace MyMap.Common
                 return minLatitude;
             }
 
-            return Math.Min(TopRightCorner?.Latitude ?? maxLatitude, BottomLeftCorner?.Latitude ?? maxLatitude);
+            return Math.Min(TopRightCorner?.Lat ?? maxLatitude, BottomLeftCorner?.Lat ?? maxLatitude);
         }
 
         public decimal GetMinLongitude()
@@ -69,7 +69,7 @@ namespace MyMap.Common
                 return minLongitude;
             }
 
-            return Math.Min(TopRightCorner?.Longitude ?? maxLongitude, BottomLeftCorner?.Longitude ?? maxLongitude);
+            return Math.Min(TopRightCorner?.Lng ?? maxLongitude, BottomLeftCorner?.Lng ?? maxLongitude);
         }
 
         public decimal GetMaxLatitude()
@@ -79,7 +79,7 @@ namespace MyMap.Common
                 return maxLongitude;
             }
 
-            return Math.Max(TopRightCorner?.Latitude ?? minLatitude, BottomLeftCorner?.Latitude ?? minLatitude);
+            return Math.Max(TopRightCorner?.Lat ?? minLatitude, BottomLeftCorner?.Lat ?? minLatitude);
         }
 
         public decimal GetMaxLongitude()
@@ -89,7 +89,7 @@ namespace MyMap.Common
                 return maxLongitude;
             }
 
-            return Math.Max(TopRightCorner?.Longitude ?? minLongitude, BottomLeftCorner?.Longitude ?? minLongitude);
+            return Math.Max(TopRightCorner?.Lng ?? minLongitude, BottomLeftCorner?.Lng ?? minLongitude);
         }
 
         private bool IsGivenLatitudeValid(decimal value, decimal bottomLatitude, decimal topLatitude)

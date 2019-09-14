@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +15,7 @@ using System.Threading.Tasks;
 namespace MyMap.API.Controllers
 {
     [Produces("application/json")]
+    [EnableCors("AllowOrigin")]
     public class WayPointApiController : ControllerBase<WayPointApiController>
     {
         private IWayPointService _wayPointService;

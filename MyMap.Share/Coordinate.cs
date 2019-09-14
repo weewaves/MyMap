@@ -4,12 +4,12 @@
     {
         public Coordinate(decimal _lat, decimal _lon)
         {
-            Latitude = _lat;
-            Longitude = _lon;
+            Lat = _lat;
+            Lng = _lon;
         }
 
-        public decimal Latitude { get; set; }
+        public decimal Lat { get; set; }
 
-        public decimal Longitude { get; set; }
+        public decimal Lng { get; set; }
     }
 }

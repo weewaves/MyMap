@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  apiEndPoint: 'http://localhost:9999',
   googleMapAPIKey: 'AIzaSyCMcc9JB83B1grez4x4nOS6WmngfPuNLQQ'
 };
 

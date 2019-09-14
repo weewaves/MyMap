@@ -25,6 +25,18 @@ namespace MyMap.API
             AddDbContext(services);
             services.AddMvc();
             services.AddMyMapDependencies();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowOrigin",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyMethod()
+                               .AllowAnyHeader()
+                               .AllowCredentials()
+                               .Build();
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
