@@ -1,0 +1,51 @@
+<h1 mat-dialog-title>WayPoint Editor</h1>
+<div mat-dialog-content>
+  <div class="example-container">
+    <mat-form-field>
+      <input matInput
+             [(value)]="wayPointData.name"
+             placeholder="Name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Type</mat-label>
+      <mat-select #fontSize
+                  [(value)]="wayPointData.type">
+        <mat-option value="0">-----</mat-option>
+        <mat-option value="1">Train Station</mat-option>
+        <mat-option value="2">School</mat-option>
+        <mat-option value="3">Combini</mat-option>
+        <mat-option value="4">Supa</mat-option>
+        <mat-option value="5">Lake</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput
+             type="number"
+             [(value)]="wayPointData.height"
+             placeholder="Height"
+             min="0">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput
+             type="number"
+             [(value)]="wayPointData.lat"
+             placeholder="Latitude"
+             min="0">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput
+             type="number"
+             [(value)]="wayPointData.lng"
+             placeholder="Longitude"
+             min="0">
+    </mat-form-field>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button>Cancel</button>
+  <button mat-button>Ok</button>
+</div>
