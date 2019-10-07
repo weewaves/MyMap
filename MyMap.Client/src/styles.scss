@@ -1,3 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Kanit:300,400,500');
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+#my-page{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    font-size: 100%;
+    vertical-align: baseline;
+    font-family: Helvetica Neue,Arial,Lucida Grande,sans-serif;
+}

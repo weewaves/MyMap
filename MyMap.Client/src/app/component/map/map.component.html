@@ -1,27 +1,30 @@
-<h1>My Map</h1>
-<p><a href="weewaves@gmail.com"
-     target="_blank">Weewaves</a></p>
+<div id='map-container'>
+  <agm-map #GoogleMap
+           [latitude]="lat"
+           [longitude]="lng"
+           [zoom]="zoom"
+           [disableDefaultUI]="false"
+           [zoomControl]="false"
+           (mapClick)="mapClicked($event)">
 
-<agm-map #GoogleMap
-         [latitude]="lat"
-         [longitude]="lng"
-         [zoom]="zoom"
-         [disableDefaultUI]="false"
-         [zoomControl]="false"
-         (mapClick)="mapClicked($event)">
+    <agm-marker #MarkerLayer
+                *ngFor="let m of markers; let i = index; trackBy: trackMarker"
+                (markerClick)="clickedMarker(m, i)"
+                [latitude]="m.lat"
+                [longitude]="m.lng"
+                [label]="m.label"
+                [animation]="google.maps.Animation.DROP"
+                [markerDraggable]="m.draggable"
+                (dragEnd)="markerDragEnd(m, $event)">
 
-  <agm-marker #MarkerLayer
-              *ngFor="let m of markers; let i = index"
-              (markerClick)="clickedMarker(m, i)"
-              [latitude]="m.lat"
-              [longitude]="m.lng"
-              [label]="m.label"
-              [markerDraggable]="m.draggable"
-              (dragEnd)="markerDragEnd(m, $event)">
+      <agm-snazzy-info-window [maxWidth]="500"
+                              [maxHeight]="1000"
+                              [closeWhenOthersOpen]="true">
+        <ng-template>
 
-    <agm-info-window class="waypoint-info">
-      <strong>InfoWindow content</strong>
-    </agm-info-window>
+        </ng-template>
+      </agm-snazzy-info-window>
+    </agm-marker>
 
-  </agm-marker>
-</agm-map>
+  </agm-map>
+</div>

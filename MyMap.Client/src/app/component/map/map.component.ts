@@ -1,6 +1,6 @@
 // tslint:disable: variable-name
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MouseEvent, AgmMap, AgmMarker } from '@agm/core';
+import { MouseEvent, AgmMap, AgmMarker, AgmInfoWindow } from '@agm/core';
 import { MapService } from 'src/app/service/common/map.service';
 import { WayPointService } from 'src/app/service/way-point/waypoint.service';
 import { WayPointViewModel } from 'src/app/model/view-model/way-point/way-point-view-model';
@@ -22,15 +22,19 @@ export class MapComponent implements OnInit {
   }
   @ViewChild('GoogleMap', { static: true }) googleMap: AgmMap;
   @ViewChild('MakerLayer', { static: true }) markerLayer: AgmMarker;
+  @ViewChild('WayPointInfoPopup', { static: true }) wayPointInfoPopup: AgmInfoWindow;
 
 
   private _googleMapElement: any;
   private _mapBoundChangedEventListener: any;
+  private _currentWayPointInfoPopup: AgmInfoWindow;
 
   // Default settings
   zoom = 8;
   lat = 51.673858;
   lng = 7.815982;
+
+  google = google;
 
   markers: WayPointViewModel[] = null;
 
@@ -48,15 +52,17 @@ export class MapComponent implements OnInit {
     return this.markers;
   }
 
-  clickedMarker(wayPointData: WayPointViewModel, index: number) {
-    const dialogRef = this.dialog.open(WayPointDialogComponent, {
-      width: '250px',
-      data: wayPointData
-    });
+  clickedMarker(wayPointData: WayPointViewModel, _index: number, target?: AgmInfoWindow) {
+    // this._updateCurrentWayPointPopup(target);
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+    // const dialogRef = this.dialog.open(WayPointDialogComponent, {
+    //   width: '250px',
+    //   data: wayPointData
+    // });
+
+    // dialogRef.afterClosed().subscribe(_result => {
+    //   console.log('The dialog was closed');
+    // });
   }
 
   openDialog(): void {
@@ -65,9 +71,17 @@ export class MapComponent implements OnInit {
       data: null
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(_result => {
       console.log('The dialog was closed');
     });
+  }
+
+  trackMarker(index: number, trackedItem: WayPointViewModel): string {
+    if (!trackedItem) {
+      return null;
+    }
+
+    return trackedItem.id;
   }
 
   mapClicked($event: MouseEvent) {
@@ -84,19 +98,9 @@ export class MapComponent implements OnInit {
       data: clickedData
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(_result => {
       console.log('The dialog was closed');
     });
-
-    // this._waypointService
-    //   .createWayPoint(clickedData)
-    //   .subscribe(() => {
-    //     self.markers.push({
-    //       lat: $event.coords.lat,
-    //       lng: $event.coords.lng,
-    //       draggable: true
-    //     });
-    //   });
   }
 
   markerDragEnd(m: WayPointViewModel, $event: MouseEvent) {
@@ -107,16 +111,16 @@ export class MapComponent implements OnInit {
     console.log('double click', m, $event);
   }
 
-  _onMapReady(event: any) {
+  private _onMapReady(event: any) {
     this.markers = [];
     this._googleMapElement = event;
     this._mapBoundChangedEventListener = google
       .maps
       .event
-      .addListener(this._googleMapElement, 'bounds_changed', this._onMapBoundChanged.bind(this));
+      .addListener(this._googleMapElement, 'idle', this._onMapBoundChanged.bind(this));
   }
 
-  _onMapBoundChanged() {
+  private _onMapBoundChanged() {
     const self = this;
     const currentMapRegion = this._mapService.getCurrentBound(this._googleMapElement);
 
@@ -124,8 +128,17 @@ export class MapComponent implements OnInit {
       .loadRegionalWayPointCollection(currentMapRegion)
       .subscribe(res => {
         setTimeout(() => {
+          self._updateCurrentWayPointPopup();
           self.markers = res;
         }, 10);
       });
+  }
+
+  private _updateCurrentWayPointPopup(currentPopup?: AgmInfoWindow) {
+    if (this._currentWayPointInfoPopup) {
+      this._currentWayPointInfoPopup.close();
+    }
+
+    this._currentWayPointInfoPopup = currentPopup;
   }
 }

@@ -1,0 +1,39 @@
+<div id='menu-bar'>
+  <div id='logo'>
+    <a href="https://travel.rakuten.com"
+       id="logo-link">
+      <img src="https://img.travel.rakuten.co.jp/m17n/share/img/common/logo.gif">
+    </a>
+  </div>
+
+  <div id='menu-items'>
+    <div id="menu-item-text">
+      <a>
+        <span>Introduction</span>
+      </a>
+    </div>
+
+    <div id="menu-item-text">
+      <a>
+        <span>Map</span>
+      </a>
+    </div>
+
+    <div id="menu-item-text">
+      <a>
+        <span>About</span>
+      </a>
+    </div>
+
+    <div id="language-item">
+      <span id="flag-icon">
+      </span>
+      <span [hidden]="direction ===ARROW_DIRECTION.DOWN"
+            (click)="onDownArrowClick()"
+            id="arrow-down"></span>
+      <span [hidden]="direction ===ARROW_DIRECTION.UP"
+            (click)="onUpArrowClick()"
+            id="arrow-up"></span>
+    </div>
+  </div>
+</div>
