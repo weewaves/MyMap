@@ -48,12 +48,12 @@ namespace MyMap.API.Controllers
         }
 
         [HttpPost]
-        [Route("api/LoadSpotCollectionByRegion")]
-        public async Task<object> Post([FromBody] MapViewPort mapArea)
+        [Route("api/LoadSpotCollectionByViewPort")]
+        public async Task<object> Post([FromBody] MapViewPort viewPort)
         {
             try
             {
-                IEnumerable<SpotModel> results = await _spotService.LoadSpotCollectionByRegion(mapArea, 50);
+                IEnumerable<SpotModel> results = await _spotService.LoadSpotCollectionByViewPort(viewPort, 50);
 
                 return Mapper.Map<IEnumerable<SpotContract>>(results);
             }

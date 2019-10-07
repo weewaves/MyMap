@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LatLngBounds } from '@agm/core';
-import { MapRegion } from 'src/app/model/common/map-region';
+import { MapViewPort } from 'src/app/model/common/map-view-port';
 import { Coordinate } from 'src/app/model/common/coordinate';
 
 declare var google: any;
@@ -10,13 +10,13 @@ declare var google: any;
 export class MapService {
   constructor() { }
 
-  public getCurrentBound(googleMapElement: any): MapRegion {
+  public getCurrentBound(googleMapElement: any): MapViewPort {
     if (!googleMapElement) {
       return;
     }
 
     const result = googleMapElement.getBounds();
-    const currentMapRegion: MapRegion = {};
+    const currentMapRegion: MapViewPort = {};
 
     if (!result) {
       return;

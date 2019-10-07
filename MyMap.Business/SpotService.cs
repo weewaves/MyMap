@@ -32,7 +32,7 @@ namespace MyMap.Business
             return CreateSuccessResult(spotEntity.Id);
         }
 
-        public async Task<IEnumerable<SpotModel>> LoadSpotCollectionByRegion(MapViewPort mapViewPort, int maxNumberOfSpots = 10)
+        public async Task<IEnumerable<SpotModel>> LoadSpotCollectionByViewPort(MapViewPort mapViewPort, int maxNumberOfSpots = 10)
         {
             var spotModels = await DbContext
                                         .Spots

@@ -39,7 +39,7 @@ export class SpotService {
 
     const req = new HttpRequest<any>(
       'POST',
-      environment.apiEndPoint + `/api/LoadSpotCollectionByRegion`,
+      environment.apiEndPoint + `/api/LoadSpotCollectionByViewPort`,
       __body,
       {
         headers: __headers,
@@ -92,7 +92,7 @@ export class SpotService {
 
     const req = new HttpRequest<any>(
       'POST',
-      environment.apiEndPoint + `/api/Spot`,
+      environment.apiEndPoint + `/api/spot`,
       __body,
       {
         headers: __headers,

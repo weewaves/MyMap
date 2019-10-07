@@ -9,7 +9,7 @@ namespace MyMap.Business.Interface
 {
     public interface ISpotService
     {
-        Task<IEnumerable<SpotModel>> LoadSpotCollectionByRegion(MapViewPort mapRegion, int maxNumberOfSpots);
+        Task<IEnumerable<SpotModel>> LoadSpotCollectionByViewPort(MapViewPort viewPort, int maxNumberOfSpots);
         Task<BusinessResult<Guid>> CreateSpot(SpotModel spotModel);
     }
 }
