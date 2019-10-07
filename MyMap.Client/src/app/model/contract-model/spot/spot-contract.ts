@@ -1,4 +1,4 @@
-export interface WayPointContract {
+export interface SpotContract {
   'id'?: string;
   'name'?: string;
   'type'?: number;

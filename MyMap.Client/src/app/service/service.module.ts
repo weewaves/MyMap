@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MapService } from './common/map.service';
-import { WayPointService } from './way-point/waypoint.service';
+import { SpotService } from './spot/spot.service';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [
     MapService,
-    WayPointService
+    SpotService
   ],
 })
 export class ServiceModule { }

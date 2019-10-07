@@ -1,16 +1,16 @@
-<h1 mat-dialog-title>WayPoint Editor</h1>
+<h1 mat-dialog-title>Spot Editor</h1>
 <div mat-dialog-content>
   <div class="example-container">
     <mat-form-field>
       <input matInput
-             [(value)]="wayPointData.name"
+             [(value)]="spotData.name"
              placeholder="Name">
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Type</mat-label>
       <mat-select #fontSize
-                  [(value)]="wayPointData.type">
+                  [(value)]="spotData.type">
         <mat-option value="0">-----</mat-option>
         <mat-option value="1">Train Station</mat-option>
         <mat-option value="2">School</mat-option>
@@ -23,7 +23,7 @@
     <mat-form-field>
       <input matInput
              type="number"
-             [(value)]="wayPointData.height"
+             [(value)]="spotData.height"
              placeholder="Height"
              min="0">
     </mat-form-field>
@@ -31,7 +31,7 @@
     <mat-form-field>
       <input matInput
              type="number"
-             [(value)]="wayPointData.lat"
+             [(value)]="spotData.lat"
              placeholder="Latitude"
              min="0">
     </mat-form-field>
@@ -39,7 +39,7 @@
     <mat-form-field>
       <input matInput
              type="number"
-             [(value)]="wayPointData.lng"
+             [(value)]="spotData.lng"
              placeholder="Longitude"
              min="0">
     </mat-form-field>

@@ -1,6 +1,6 @@
 import { Coordinate } from './coordinate';
 
-export interface MapRegion {
+export interface MapViewPort {
   topRightCorner?: Coordinate;
   bottomRightCorner?: Coordinate;
   bottomLeftCorner?: Coordinate;

@@ -2,10 +2,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MouseEvent, AgmMap, AgmMarker, AgmInfoWindow } from '@agm/core';
 import { MapService } from 'src/app/service/common/map.service';
-import { WayPointService } from 'src/app/service/way-point/waypoint.service';
-import { WayPointViewModel } from 'src/app/model/view-model/way-point/way-point-view-model';
+import { SpotService } from 'src/app/service/spot/spot.service';
+import { SpotViewModel } from 'src/app/model/view-model/spot/spot-view-model';
 import { MatDialog } from '@angular/material';
-import { WayPointDialogComponent } from '../way-point-dialog/way-point-dialog.component';
+import { SpotDialogComponent } from '../spot-dialog/spot-dialog.component';
 
 declare var google: any;
 @Component({
@@ -22,12 +22,10 @@ export class MapComponent implements OnInit {
   }
   @ViewChild('GoogleMap', { static: true }) googleMap: AgmMap;
   @ViewChild('MakerLayer', { static: true }) markerLayer: AgmMarker;
-  @ViewChild('WayPointInfoPopup', { static: true }) wayPointInfoPopup: AgmInfoWindow;
 
 
   private _googleMapElement: any;
   private _mapBoundChangedEventListener: any;
-  private _currentWayPointInfoPopup: AgmInfoWindow;
 
   // Default settings
   zoom = 8;
@@ -36,11 +34,11 @@ export class MapComponent implements OnInit {
 
   google = google;
 
-  markers: WayPointViewModel[] = null;
+  markers: SpotViewModel[] = null;
 
   constructor(
     private _mapService: MapService,
-    private _waypointService: WayPointService,
+    private _spotService: SpotService,
     public dialog: MatDialog) {
   }
 
@@ -48,25 +46,23 @@ export class MapComponent implements OnInit {
     this.googleMap.mapReady.subscribe(this._onMapReady.bind(this));
   }
 
-  getMarkerCollection(): WayPointViewModel[] {
+  getMarkerCollection(): SpotViewModel[] {
     return this.markers;
   }
 
-  clickedMarker(wayPointData: WayPointViewModel, _index: number, target?: AgmInfoWindow) {
-    // this._updateCurrentWayPointPopup(target);
+  clickedMarker(spotData: SpotViewModel, _index: number, target?: AgmInfoWindow) {
+    const dialogRef = this.dialog.open(SpotDialogComponent, {
+      width: '250px',
+      data: spotData
+    });
 
-    // const dialogRef = this.dialog.open(WayPointDialogComponent, {
-    //   width: '250px',
-    //   data: wayPointData
-    // });
-
-    // dialogRef.afterClosed().subscribe(_result => {
-    //   console.log('The dialog was closed');
-    // });
+    dialogRef.afterClosed().subscribe(_result => {
+      console.log('The dialog was closed');
+    });
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(WayPointDialogComponent, {
+    const dialogRef = this.dialog.open(SpotDialogComponent, {
       width: '250px',
       data: null
     });
@@ -76,7 +72,7 @@ export class MapComponent implements OnInit {
     });
   }
 
-  trackMarker(index: number, trackedItem: WayPointViewModel): string {
+  trackMarker(index: number, trackedItem: SpotViewModel): string {
     if (!trackedItem) {
       return null;
     }
@@ -86,14 +82,14 @@ export class MapComponent implements OnInit {
 
   mapClicked($event: MouseEvent) {
     const self = this;
-    const clickedData: WayPointViewModel = {
+    const clickedData: SpotViewModel = {
       name: '',
       lat: $event.coords.lat,
       lng: $event.coords.lng,
       draggable: true
     };
 
-    const dialogRef = this.dialog.open(WayPointDialogComponent, {
+    const dialogRef = this.dialog.open(SpotDialogComponent, {
       width: '250px',
       data: clickedData
     });
@@ -103,11 +99,11 @@ export class MapComponent implements OnInit {
     });
   }
 
-  markerDragEnd(m: WayPointViewModel, $event: MouseEvent) {
+  markerDragEnd(m: SpotViewModel, $event: MouseEvent) {
     console.log('dragEnd', m, $event);
   }
 
-  markerDouleClick(m: WayPointViewModel, $event: MouseEvent) {
+  markerDouleClick(m: SpotViewModel, $event: MouseEvent) {
     console.log('double click', m, $event);
   }
 
@@ -124,21 +120,12 @@ export class MapComponent implements OnInit {
     const self = this;
     const currentMapRegion = this._mapService.getCurrentBound(this._googleMapElement);
 
-    this._waypointService
-      .loadRegionalWayPointCollection(currentMapRegion)
+    this._spotService
+      .loadRegionalSpotCollection(currentMapRegion)
       .subscribe(res => {
         setTimeout(() => {
-          self._updateCurrentWayPointPopup();
           self.markers = res;
         }, 10);
       });
-  }
-
-  private _updateCurrentWayPointPopup(currentPopup?: AgmInfoWindow) {
-    if (this._currentWayPointInfoPopup) {
-      this._currentWayPointInfoPopup.close();
-    }
-
-    this._currentWayPointInfoPopup = currentPopup;
   }
 }

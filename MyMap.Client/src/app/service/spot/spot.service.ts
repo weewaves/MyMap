@@ -1,36 +1,36 @@
 // tslint:disable: variable-name
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpRequest, HttpResponse, HttpHeaders } from '@angular/common/http';
-import { MapRegion } from 'src/app/model/common/map-region';
+import { MapViewPort } from 'src/app/model/common/map-view-port';
 import { environment } from 'src/environments/environment';
-import { WayPointViewModel } from 'src/app/model/view-model/way-point/way-point-view-model';
-import { WayPointContract } from 'src/app/model/contract-model/waypoint/way-point-contract';
+import { SpotViewModel } from 'src/app/model/view-model/spot/spot-view-model';
+import { SpotContract } from 'src/app/model/contract-model/spot/spot-contract';
 import * as uuid from 'uuid';
-import { Observable, of } from 'rxjs';
-import { map, filter, switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class WayPointService {
+export class SpotService {
   constructor(private __httpClient: HttpClient) { }
 
-  createWayPoint(waypointViewModel?: WayPointViewModel): Observable<any> {
-    const data: WayPointContract = {
+  createSpot(spotViewModel?: SpotViewModel): Observable<any> {
+    const data: SpotContract = {
       id: uuid.v4(),
       height: 1,
-      latitude: waypointViewModel.lat,
-      longitude: waypointViewModel.lng,
+      latitude: spotViewModel.lat,
+      longitude: spotViewModel.lng,
       name: new Date().toISOString(),
       type: 1
     };
 
-    return this.createWayPointResponse(data).pipe(
+    return this.createSpotResponse(data).pipe(
       map(_r => _r.body.returnValue)
     );
   }
 
-  LoadWayPointCollectionByRegionResponse(data?: MapRegion): Observable<StrictHttpResponse<Array<WayPointContract>>> {
+  LoadSpotCollectionByViewPortResponse(data?: MapViewPort): Observable<StrictHttpResponse<Array<SpotContract>>> {
     let __headers = new HttpHeaders();
     const __body: any = data;
 
@@ -39,7 +39,7 @@ export class WayPointService {
 
     const req = new HttpRequest<any>(
       'POST',
-      environment.apiEndPoint + `/api/LoadWayPointCollectionByRegion`,
+      environment.apiEndPoint + `/api/LoadSpotCollectionByRegion`,
       __body,
       {
         headers: __headers,
@@ -49,17 +49,17 @@ export class WayPointService {
     return this.__httpClient.request<any>(req).pipe(
       filter(_r => _r instanceof HttpResponse),
       map((_r) => {
-        return _r as StrictHttpResponse<Array<WayPointContract>>;
+        return _r as StrictHttpResponse<Array<SpotContract>>;
       })
     );
   }
 
-  loadRegionalWayPointCollection(mapRegion?: MapRegion): Observable<WayPointViewModel[]> {
-    return this.LoadWayPointCollectionByRegion(mapRegion)
+  loadRegionalSpotCollection(mapViewPort?: MapViewPort): Observable<SpotViewModel[]> {
+    return this.LoadSpotCollectionByViewPort(mapViewPort)
       .pipe(
         map(res => {
           return res.map(r => {
-            const waypointViewModel: WayPointViewModel = {
+            const spotViewModel: SpotViewModel = {
               id: r.id,
               name: r.name,
               lat: r.latitude,
@@ -70,20 +70,20 @@ export class WayPointService {
               type: r.type
             };
 
-            return waypointViewModel;
+            return spotViewModel;
           });
         })
       );
   }
 
-  LoadWayPointCollectionByRegion(mapRegion?: MapRegion): Observable<Array<WayPointContract>> {
-    return this.LoadWayPointCollectionByRegionResponse(mapRegion)
+  LoadSpotCollectionByViewPort(mapViewPort?: MapViewPort): Observable<Array<SpotContract>> {
+    return this.LoadSpotCollectionByViewPortResponse(mapViewPort)
       .pipe(
-        map(_r => _r.body as Array<WayPointContract>)
+        map(_r => _r.body as Array<SpotContract>)
       );
   }
 
-  createWayPointResponse(data?: WayPointContract): Observable<StrictHttpResponse<any>> {
+  createSpotResponse(data?: SpotContract): Observable<StrictHttpResponse<any>> {
     let __headers = new HttpHeaders();
     const __body: any = data;
 
@@ -92,7 +92,7 @@ export class WayPointService {
 
     const req = new HttpRequest<any>(
       'POST',
-      environment.apiEndPoint + `/api/WayPoint`,
+      environment.apiEndPoint + `/api/Spot`,
       __body,
       {
         headers: __headers,

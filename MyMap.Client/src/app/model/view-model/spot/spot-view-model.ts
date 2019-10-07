@@ -1,6 +1,6 @@
 import { Coordinate } from '../../common/coordinate';
 
-export interface WayPointViewModel extends Coordinate {
+export interface SpotViewModel extends Coordinate {
   'id'?: string;
   'name'?: string;
   'type'?: number;
