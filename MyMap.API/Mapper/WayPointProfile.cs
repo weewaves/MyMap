@@ -4,9 +4,9 @@ using MyMap.Business.Model.Spot;
 
 namespace MyMap.API.Mapper
 {
-    public class WayPointProfile : Profile
+    public class SpotProfile : Profile
     {
-        public WayPointProfile()
+        public SpotProfile()
         {
             CreateMap<SpotModel, SpotContract>();
             CreateMap<SpotContract, SpotModel>();

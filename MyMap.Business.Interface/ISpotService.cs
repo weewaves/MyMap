@@ -10,6 +10,6 @@ namespace MyMap.Business.Interface
     public interface ISpotService
     {
         Task<IEnumerable<SpotModel>> LoadSpotCollectionByRegion(MapArea mapRegion, int maxNumberOfSpots);
-        Task<BusinessResult<Guid>> CreateSpot(SpotModel wayPointModel);
+        Task<BusinessResult<Guid>> CreateSpot(SpotModel spotModel);
     }
 }
