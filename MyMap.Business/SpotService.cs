@@ -32,12 +32,12 @@ namespace MyMap.Business
             return CreateSuccessResult(spotEntity.Id);
         }
 
-        public async Task<IEnumerable<SpotModel>> LoadSpotCollectionByRegion(MapArea mapRegion, int maxNumberOfSpots = 10)
+        public async Task<IEnumerable<SpotModel>> LoadSpotCollectionByRegion(MapViewPort mapViewPort, int maxNumberOfSpots = 10)
         {
             var spotModels = await DbContext
                                         .Spots
                                         .Where(rwp => !rwp.Disabled &&
-                                                       mapRegion.Contains(new Coordinate(rwp.Latitude.Value, rwp.Longitude.Value)))
+                                                       mapViewPort.Contains(new Coordinate(rwp.Latitude.Value, rwp.Longitude.Value)))
                                         .Select(rwp => new SpotModel
                                         {
                                             Id = rwp.Id,

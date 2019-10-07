@@ -8,7 +8,7 @@ namespace MyMap.Common
     ///              =                         =
     /// BottomLeft   ===========================     BottomRight
     /// </summary>
-    public class MapArea
+    public class MapViewPort
     {
         private decimal baseLatitude = Convert.ToDecimal(0);
         private decimal maxLatitude = Convert.ToDecimal(90);
@@ -27,7 +27,7 @@ namespace MyMap.Common
         /// Has at least 2 coordinates lies on the same diagonal line
         /// </summary>
         /// <returns></returns>
-        public bool IsValidRegion()
+        public bool IsValidViewPort()
         {
             return (TopLeftCorner != null && BottomRightCorner != null)
                 || (TopRightCorner != null && BottomLeftCorner != null);
