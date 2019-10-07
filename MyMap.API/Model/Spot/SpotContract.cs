@@ -1,25 +1,25 @@
 ﻿using System;
 
-namespace MyMap.API.Model.WayPoint
+namespace MyMap.API.Model.Spot
 {
-    public class CreateWayPointContract
+    public class SpotContract
     {
-        public CreateWayPointContract()
+        public SpotContract()
         {
         }
 
         public Guid Id { get; set; }
 
-        public DateTime CreatedDate { get; set; }
-
         public string Name { get; set; }
+
+        public int Type { get; set; }
+
+        public string SpotDescription { get; set; }
 
         public float? Height { get; set; }
 
         public decimal? Latitude { get; set; }
 
         public decimal? Longitude { get; set; }
-
-        public int Type { get; set; }
     }
 }

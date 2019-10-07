@@ -11,9 +11,10 @@ using System;
 namespace MyMap.DataModel.Migrations
 {
     [DbContext(typeof(MyMapDbContext))]
-    partial class MyMapDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191007051905_AddRegionTableAndRelationshipToReportTable")]
+    partial class AddRegionTableAndRelationshipToReportTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

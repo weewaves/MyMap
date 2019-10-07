@@ -11,7 +11,7 @@ namespace MyMap.API.Config
         public static void AddMyMapDependencies(this IServiceCollection services)
         {
             services.AddTransient<IMyMapDbContext, MyMapDbContext>();
-            services.AddScoped<IWayPointService, WayPointService>();
+            services.AddScoped<ISpotService, SpotService>();
         }
     }
 }

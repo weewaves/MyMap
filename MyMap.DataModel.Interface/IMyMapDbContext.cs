@@ -16,6 +16,8 @@ namespace MyMap.DataModel.Interface
 
         Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken));
 
-        DbSet<WayPoint> WayPoints { get; set; }
-    }
+        DbSet<Spot> Spots { get; set; }
+
+        DbSet<Area> Areas { get; set; }
+    }   
 }

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using MyMap.API.Model.WayPoint;
-using MyMap.Business.Model.WayPoint;
+using MyMap.API.Model.Spot;
+using MyMap.Business.Model.Spot;
 
 namespace MyMap.API.Mapper
 {
@@ -8,9 +8,9 @@ namespace MyMap.API.Mapper
     {
         public WayPointProfile()
         {
-            CreateMap<WayPointModel, WayPointContract>();
-            CreateMap<WayPointContract, WayPointModel>();
-            CreateMap<CreateWayPointContract, WayPointModel>();
+            CreateMap<SpotModel, SpotContract>();
+            CreateMap<SpotContract, SpotModel>();
+            CreateMap<CreateSpotContract, SpotModel>();
         }
     }
 }

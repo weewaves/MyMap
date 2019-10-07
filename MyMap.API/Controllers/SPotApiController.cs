@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using MyMap.API.Model.WayPoint;
+using MyMap.API.Model.Spot;
 using MyMap.Business.Interface;
-using MyMap.Business.Model.WayPoint;
+using MyMap.Business.Model.Spot;
 using MyMap.Common;
 using System;
 using System.Collections.Generic;
@@ -16,28 +16,28 @@ namespace MyMap.API.Controllers
 {
     [Produces("application/json")]
     [EnableCors("AllowOrigin")]
-    public class WayPointApiController : ControllerBase<WayPointApiController>
+    public class SpotApiController : ControllerBase<SpotApiController>
     {
-        private IWayPointService _wayPointService;
+        private ISpotService _spotService;
 
-        public WayPointApiController(
+        public SpotApiController(
             IConfiguration configuration,
-            ILogger<WayPointApiController> logger,
+            ILogger<SpotApiController> logger,
             IMapper mapper,
-            IWayPointService wayPointService) : base(configuration, logger, mapper)
+            ISpotService spotService) : base(configuration, logger, mapper)
         {
-            _wayPointService = wayPointService;
+            _spotService = spotService;
         }
 
         [HttpPost]
-        [Route("api/waypoint")]
-        public async Task<object> Post([FromBody] CreateWayPointContract waypointViewModel)
+        [Route("api/spot")]
+        public async Task<object> Post([FromBody] CreateSpotContract contract)
         {
             try
             {
-                var wayPointModel = Mapper.Map<WayPointModel>(waypointViewModel);
+                var model = Mapper.Map<SpotModel>(contract);
 
-                return await _wayPointService.CreateWayPoint(wayPointModel);
+                return await _spotService.CreateSpot(model);
             }
             catch (Exception exception)
             {
@@ -48,14 +48,14 @@ namespace MyMap.API.Controllers
         }
 
         [HttpPost]
-        [Route("api/LoadWayPointCollectionByRegion")]
-        public async Task<object> Post([FromBody] MapRegion mapRegion)
+        [Route("api/LoadSpotCollectionByRegion")]
+        public async Task<object> Post([FromBody] MapArea mapRegion)
         {
             try
             {
-                IEnumerable<WayPointModel> results = await _wayPointService.LoadWayPointCollectionByRegion(mapRegion, 50);
+                IEnumerable<SpotModel> results = await _spotService.LoadSpotCollectionByRegion(mapRegion, 50);
 
-                return Mapper.Map<IEnumerable<WayPointContract>>(results);
+                return Mapper.Map<IEnumerable<SpotContract>>(results);
             }
             catch (Exception exception)
             {

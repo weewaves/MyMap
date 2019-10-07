@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using MyMap.Business.Model.WayPoint;
+using MyMap.Business.Model.Spot;
 using MyMap.Domain;
 
 namespace MyMap.Business.Mapper
 {
-    public class WayPointProfile : Profile
-    {
-        public WayPointProfile()
+    public class SpotProfile : Profile
+    {   
+        public SpotProfile()
         {
-            CreateMap<WayPoint, WayPointModel>();
-            CreateMap<WayPointModel, WayPoint>();
+            CreateMap<Spot, SpotModel>();
+            CreateMap<SpotModel, Spot>();
         }
     }
 }

@@ -8,7 +8,7 @@ namespace MyMap.API.Config
         public static void AddMyMapAutoMapper(this IServiceCollection services)
         {
             var thisAssembly = typeof(AutoMapperConfig).Assembly;
-            var businessAssembly = typeof(Business.Mapper.WayPointProfile).Assembly;
+            var businessAssembly = typeof(Business.Mapper.SpotProfile).Assembly;
 
             services.AddAutoMapper(thisAssembly, businessAssembly);
         }

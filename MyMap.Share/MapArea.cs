@@ -8,7 +8,7 @@ namespace MyMap.Common
     ///              =                         =
     /// BottomLeft   ===========================     BottomRight
     /// </summary>
-    public class MapRegion
+    public class MapArea
     {
         private decimal baseLatitude = Convert.ToDecimal(0);
         private decimal maxLatitude = Convert.ToDecimal(90);

@@ -12,7 +12,9 @@ namespace MyMap.DataModel
         {
         }
 
-        public DbSet<WayPoint> WayPoints { get; set; }
+        public DbSet<Spot> Spots { get; set; }
+
+        public DbSet<Area> Areas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,13 +29,6 @@ namespace MyMap.DataModel
                     .Relational(ConfigurationSource.Convention)
                     .ToTable(entity.ClrType.Name);
             }
-
-            #region WayPoint
-            modelBuilder.Entity<WayPoint>()
-                .Property(wayPoint => wayPoint.Name)
-                .HasMaxLength(256)
-                .IsRequired();
-            #endregion WayPoint
         }
     }
 }
