@@ -16,10 +16,18 @@ export class SpotService {
   constructor(private __httpClient: HttpClient) { }
 
   createSpot(spotViewModel?: SpotViewModel): Observable<SpotContract> {
-    const data = {} as SpotContract;
-
-    Object.assign(data, spotViewModel);
-    data.id = uuid.v4();
+    const data: SpotContract = {
+      id: uuid.v4(),
+      areaId: null,
+      pictureUrls: [],
+      height: spotViewModel.height,
+      latitude: spotViewModel.lat,
+      longitude: spotViewModel.lng,
+      name: spotViewModel.name,
+      spotDescription: spotViewModel.spotDescription,
+      type: spotViewModel.type,
+      vote: spotViewModel.vote
+    };
 
     return this.createSpotResponse(data).pipe(
       map(_r => _r.body)

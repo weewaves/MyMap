@@ -57,7 +57,11 @@ export class MapComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(_result => {
-      console.log(_result);
+      if (_result && _result.updatedData) {
+        _result.updatedData.draggable = true;
+
+        this.markers.push(_result.updatedData as SpotViewModel);
+      }
     });
   }
 

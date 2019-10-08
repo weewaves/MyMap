@@ -16,7 +16,7 @@ namespace MyMap.API
             }
             catch (Exception exception)
             {
-                throw;
+                throw exception;
             }
             finally
             {

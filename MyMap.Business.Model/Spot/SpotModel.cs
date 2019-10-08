@@ -14,7 +14,7 @@ namespace MyMap.Business.Model.Spot
 
         public int? Vote { get; set; }
 
-        public List<string> PictureUrls { get; set; }
+        public string[] PictureUrls { get; set; }
 
         public float? Height { get; set; }
 

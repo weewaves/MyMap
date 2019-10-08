@@ -24,7 +24,8 @@ namespace MyMap.Business
             var spotEntity = Mapper.Map<Spot>(SpotModel);
 
             spotEntity.CreatedDate = DateTime.Now;
-
+            spotEntity.AreaId = null;
+            spotEntity.PictureUrls = new string[] { "A", "B", "C" };
             DbContext.Spots.Add(spotEntity);
 
             await DbContext.SaveChangesAsync(true);
@@ -41,7 +42,7 @@ namespace MyMap.Business
                                         .Select(sp => new SpotModel
                                         {
                                             Id = sp.Id,
-                                            AreaId=sp.AreaId,
+                                            AreaId = sp.AreaId,
                                             PictureUrls = sp.PictureUrls,
                                             Vote = sp.Vote,
                                             Height = sp.Height,

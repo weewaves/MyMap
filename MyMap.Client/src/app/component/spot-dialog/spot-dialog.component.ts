@@ -31,12 +31,11 @@ export class SpotDialogComponent implements OnInit {
     this.isLoading = true;
 
     this._spotService
-      .createSpot(this.spotData)
+      .createSpot(this.internalData)
       .subscribe(
         (res) => {
-          console.log(res);
           this.isLoading = false;
-          this._dialogRef.close();
+          this._dialogRef.close({ updatedData: this.internalData });
         });
   }
 
