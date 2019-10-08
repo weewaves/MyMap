@@ -29,8 +29,8 @@ export class MapComponent implements OnInit {
 
   // Default settings
   zoom = 8;
-  lat = 51.673858;
-  lng = 7.815982;
+  lat = 35.652216432742485;
+  lng = 139.753400369244;
 
   google = google;
 
@@ -57,7 +57,7 @@ export class MapComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(_result => {
-      console.log('The dialog was closed');
+      console.log(_result);
     });
   }
 
@@ -68,7 +68,7 @@ export class MapComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(_result => {
-      console.log('The dialog was closed');
+      console.log(_result);
     });
   }
 
@@ -95,7 +95,7 @@ export class MapComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(_result => {
-      console.log('The dialog was closed');
+      console.log(_result);
     });
   }
 

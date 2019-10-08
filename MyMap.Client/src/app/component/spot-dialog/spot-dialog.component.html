@@ -1,51 +1,64 @@
 <h1 mat-dialog-title>Spot Editor</h1>
 <div mat-dialog-content>
-  <div class="example-container">
-    <mat-form-field>
-      <input matInput
-             [(value)]="spotData.name"
-             placeholder="Name">
-    </mat-form-field>
+  <mat-form-field>
+    <input matInput
+           id="name"
+           type="text"
+           [(ngModel)]="internalData.name"
+           (input)="onDataChanged($event)"
+           placeholder="Name">
+  </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Type</mat-label>
-      <mat-select #fontSize
-                  [(value)]="spotData.type">
-        <mat-option value="0">-----</mat-option>
-        <mat-option value="1">Train Station</mat-option>
-        <mat-option value="2">School</mat-option>
-        <mat-option value="3">Combini</mat-option>
-        <mat-option value="4">Supa</mat-option>
-        <mat-option value="5">Lake</mat-option>
-      </mat-select>
-    </mat-form-field>
+  <mat-form-field>
+    <mat-label>Type</mat-label>
+    <mat-select #fontSize
+                (selectionChange)="onDataChanged($event)"
+                [(ngModel)]="internalData.type">
+      <mat-option value="0">-----</mat-option>
+      <mat-option value="1">Train Station</mat-option>
+      <mat-option value="2">School</mat-option>
+      <mat-option value="3">Combini</mat-option>
+      <mat-option value="4">Supa</mat-option>
+      <mat-option value="5">Lake</mat-option>
+    </mat-select>
+  </mat-form-field>
 
-    <mat-form-field>
-      <input matInput
-             type="number"
-             [(value)]="spotData.height"
-             placeholder="Height"
-             min="0">
-    </mat-form-field>
+  <mat-form-field>
+    <input matInput
+           type="number"
+           [(ngModel)]="internalData.height"
+           (input)="onDataChanged($event)"
+           placeholder="Height"
+           min="0">
+  </mat-form-field>
 
-    <mat-form-field>
-      <input matInput
-             type="number"
-             [(value)]="spotData.lat"
-             placeholder="Latitude"
-             min="0">
-    </mat-form-field>
+  <mat-form-field>
+    <input matInput
+           type="number"
+           [(ngModel)]="internalData.lat"
+           (input)="onDataChanged($event)"
+           placeholder="Latitude"
+           min="0">
+  </mat-form-field>
 
-    <mat-form-field>
-      <input matInput
-             type="number"
-             [(value)]="spotData.lng"
-             placeholder="Longitude"
-             min="0">
-    </mat-form-field>
-  </div>
+  <mat-form-field>
+    <input matInput
+           type="number"
+           [(ngModel)]="internalData.lng"
+           (input)="onDataChanged($event)"
+           placeholder="Longitude"
+           min="0">
+  </mat-form-field>
 </div>
+
+<mat-progress-bar *ngIf="isLoading"
+                  mode="query">
+</mat-progress-bar>
+
 <div mat-dialog-actions>
-  <button mat-button>Cancel</button>
-  <button mat-button>Ok</button>
+  <button mat-button
+          (click)="onCancel()">Cancel</button>
+  <button mat-button
+          [disabled]="!isDataChanged"
+          (click)="onSave()">Ok</button>
 </div>

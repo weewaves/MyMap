@@ -5,4 +5,8 @@ export interface SpotContract {
   'height'?: number;
   'latitude'?: number;
   'longitude'?: number;
+  'spotDescription'?: string;
+  'vote'?: string;
+  'pictureUrls'?: Array<string>;
+  'areaId'?: string;
 }

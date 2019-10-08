@@ -37,7 +37,9 @@ namespace MyMap.API.Controllers
             {
                 var model = Mapper.Map<SpotModel>(contract);
 
-                return await _spotService.CreateSpot(model);
+                await _spotService.CreateSpot(model);
+
+                return model;
             }
             catch (Exception exception)
             {

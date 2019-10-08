@@ -6,5 +6,9 @@ export interface SpotViewModel extends Coordinate {
   'type'?: number;
   'height'?: number;
   'label'?: string;
+  'spotDescription'?: string;
+  'vote'?: string;
+  'pictureUrls'?: Array<string>;
+  'areaId'?: string;
   'draggable'?: boolean;
 }

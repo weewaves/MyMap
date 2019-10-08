@@ -36,16 +36,19 @@ namespace MyMap.Business
         {
             var spotModels = await DbContext
                                         .Spots
-                                        .Where(rwp => !rwp.Disabled &&
-                                                       mapViewPort.Contains(new Coordinate(rwp.Latitude.Value, rwp.Longitude.Value)))
-                                        .Select(rwp => new SpotModel
+                                        .Where(sp => !sp.Disabled &&
+                                                       mapViewPort.Contains(new Coordinate(sp.Latitude.Value, sp.Longitude.Value)))
+                                        .Select(sp => new SpotModel
                                         {
-                                            Id = rwp.Id,
-                                            Height = rwp.Height,
-                                            Latitude = rwp.Latitude,
-                                            Longitude = rwp.Longitude,
-                                            Name = rwp.Name,
-                                            Type = rwp.Type
+                                            Id = sp.Id,
+                                            AreaId=sp.AreaId,
+                                            PictureUrls = sp.PictureUrls,
+                                            Vote = sp.Vote,
+                                            Height = sp.Height,
+                                            Latitude = sp.Latitude,
+                                            Longitude = sp.Longitude,
+                                            Name = sp.Name,
+                                            Type = sp.Type
                                         })
                                         .Take(maxNumberOfSpots)
                                         .ToListAsync();

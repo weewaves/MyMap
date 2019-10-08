@@ -15,18 +15,14 @@ import { map, filter } from 'rxjs/operators';
 export class SpotService {
   constructor(private __httpClient: HttpClient) { }
 
-  createSpot(spotViewModel?: SpotViewModel): Observable<any> {
-    const data: SpotContract = {
-      id: uuid.v4(),
-      height: 1,
-      latitude: spotViewModel.lat,
-      longitude: spotViewModel.lng,
-      name: new Date().toISOString(),
-      type: 1
-    };
+  createSpot(spotViewModel?: SpotViewModel): Observable<SpotContract> {
+    const data = {} as SpotContract;
+
+    Object.assign(data, spotViewModel);
+    data.id = uuid.v4();
 
     return this.createSpotResponse(data).pipe(
-      map(_r => _r.body.returnValue)
+      map(_r => _r.body)
     );
   }
 
@@ -67,7 +63,11 @@ export class SpotService {
               height: r.height,
               draggable: true,
               label: null,
-              type: r.type
+              type: r.type,
+              areaId: r.areaId,
+              pictureUrls: r.pictureUrls,
+              spotDescription: r.spotDescription,
+              vote: r.vote
             };
 
             return spotViewModel;
@@ -83,7 +83,7 @@ export class SpotService {
       );
   }
 
-  createSpotResponse(data?: SpotContract): Observable<StrictHttpResponse<any>> {
+  createSpotResponse(data?: SpotContract): Observable<StrictHttpResponse<SpotContract>> {
     let __headers = new HttpHeaders();
     const __body: any = data;
 
@@ -99,10 +99,10 @@ export class SpotService {
         responseType: 'text'
       });
 
-    return this.__httpClient.request<any>(req).pipe(
+    return this.__httpClient.request<SpotContract>(req).pipe(
       filter(_r => _r instanceof HttpResponse),
       map((_r) => {
-        return _r as StrictHttpResponse<any>;
+        return _r as StrictHttpResponse<SpotContract>;
       })
     );
   }
